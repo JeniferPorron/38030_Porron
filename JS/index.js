@@ -1,15 +1,16 @@
 
-//Array productos
-const productos = []
-const descripciones = []
+//Arrays
+    const productos = []
+    const descripciones = []
+    const carrito = []
 
-// Variables
-let descripcion = ""
-let stock = 0
-let importe = 0
-let tipoIVA = ""
+//Variables
+    let descripcion = ""
+    let stock = 0
+    let importe = 0
+    let tipoIVA = ""
 
-// Clase producto
+//Clase producto
 class Producto{
     constructor(id, descripcion, stock, importe, tipoIVA){
         this.id = id;
@@ -19,7 +20,7 @@ class Producto{
         this.tipoIVA = tipoIVA;
     }
 
-    // Calcular el importe final
+    //Calcular importe con IVA
     importeIVA(importe, tipoIVA){
         switch (tipoIVA) {
             case "general":
@@ -42,30 +43,53 @@ class Producto{
 
 }
 
+// Código
+    //Agregar productos al array
+    do {
+        descripcion = prompt("Indique el nombre del producto:");
+        stock = parseInt(prompt("Indique el stock disponible:"));
+        importe = parseFloat(prompt("Indique el importe del producto:")).toFixed(2);
+        tipoIVA = prompt("Indique el tipo de IVA aplicable: general, reducido, superreducido o ninguno.");
 
-do {
-    descripcion = prompt("Ingrese el nombre del producto:");
-    stock = parseInt(prompt("Indique el stock disponible:"));
-    importe = parseFloat(prompt("Ingrese el importe del producto:")).toFixed(2);
-    tipoIVA = prompt("Indique el tipo de IVA aplicable: general, reducido, superreducido o ninguno.");
+        const nuevoProducto = new Producto(crearID(), descripcion, stock, importe, tipoIVA);
+        productos.push(nuevoProducto);
+        agregarOtro = confirm("¿Desea agregar otro producto?");
 
-    const nuevoProducto = new Producto(crearID(), descripcion, stock, importe, tipoIVA);
-    productos.push(nuevoProducto);
-    agregarOtro = confirm("¿Desea agregar otro producto?");
+    } while(agregarOtro)
 
-} while(agregarOtro)
+    //Mostrar productos añadidos al array
+    for (let i = 0 ; i < productos.length ; i++){
+        descripciones.push(productos[i].descripcion);
+    }
 
-// Lista de productos
+    alert(descripciones.join(", "))
 
-for (let i = 0 ; i < productos.length ; i++){
-    descripciones.push(productos[i].descripcion);
-}
+buscarProductos(productos)
 
-alert(descripciones.join(", "))
+añadirCarrito(productos)
 
- // Crear id
+
+// Funciones
+    //Crear ID
     function crearID(){
         return parseInt(Math.random() * 1000000);
     }
 
+    //Busqueda de productos por la descripcion
+    function buscarProductos(productos){
+        let busqueda = prompt("Indique el nombre del producto que desea buscar:");
+            const resultado = productos.filter(producto => producto.descripcion.includes(busqueda));
+            //alert("Productos encontrados: " + resultado.join(", "));
+            console.log(mostrarBusqueda(resultado));
+    }
 
+    function mostrarBusqueda(resultado){
+        console.log(resultado);
+        let resultado2 = resultadoBusqueda.map(producto => {
+            return{
+                descripcion: producto.descripcion,
+                importe: producto.importe,
+            }
+        })
+        return resultado2
+    }
