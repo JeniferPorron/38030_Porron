@@ -1,16 +1,13 @@
+const productos = [];
+    const descripciones = [];
 
-//Arrays
-    const productos = []
-    const descripciones = []
-    const carrito = []
 
-//Variables
-    let descripcion = ""
-    let stock = 0
-    let importe = 0
-    let tipoIVA = ""
+    let descripcion = "";
+    let stock = 0;
+    let importe = 0;
+    let tipoIVA = "";
 
-//Clase producto
+
 class Producto{
     constructor(id, descripcion, stock, importe, tipoIVA){
         this.id = id;
@@ -20,7 +17,7 @@ class Producto{
         this.tipoIVA = tipoIVA;
     }
 
-    //Calcular importe con IVA
+
     importeIVA(importe, tipoIVA){
         switch (tipoIVA) {
             case "general":
@@ -43,8 +40,7 @@ class Producto{
 
 }
 
-// Código
-    //Agregar productos al array
+
     do {
         descripcion = prompt("Indique el nombre del producto:");
         stock = parseInt(prompt("Indique el stock disponible:"));
@@ -55,31 +51,25 @@ class Producto{
         productos.push(nuevoProducto);
         agregarOtro = confirm("¿Desea agregar otro producto?");
 
-    } while(agregarOtro)
+    } while(agregarOtro);
 
-    //Mostrar productos añadidos al array
+
     for (let i = 0 ; i < productos.length ; i++){
         descripciones.push(productos[i].descripcion);
     }
 
-    alert(descripciones.join(", "))
+    alert(descripciones.join(", "));
 
-buscarProductos(productos)
+buscarProductos(productos);
 
-añadirCarrito(productos)
-
-
-// Funciones
-    //Crear ID
     function crearID(){
         return parseInt(Math.random() * 1000000);
     }
 
-    //Busqueda de productos por la descripcion
+
     function buscarProductos(productos){
         let busqueda = prompt("Indique el nombre del producto que desea buscar:");
             const resultado = productos.filter(producto => producto.descripcion.includes(busqueda));
-            //alert("Productos encontrados: " + resultado.join(", "));
             console.log(mostrarBusqueda(resultado));
     }
 
@@ -90,6 +80,26 @@ añadirCarrito(productos)
                 descripcion: producto.descripcion,
                 importe: producto.importe,
             }
-        })
-        return resultado2
+        });
+        return resultado2;
     }
+
+
+let busqueda = document.getElementById("busqueda");
+busqueda.addEventListener ('input', () => {
+    console.log(busqueda.value);
+});
+
+let formulario = document.getElementById("formulario");
+formulario.addEventListener("submit", validarForm)
+
+function validarForm(validacion){
+    validacion.preventDefault();
+    console.log("Formulario enviado.");
+}
+
+let boton = document.getElementById("boton");
+boton.onclick = (event) => {
+    event.preventDefault();
+    console.log("Búsqueda realizada.");
+}
